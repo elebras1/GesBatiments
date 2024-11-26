@@ -14,8 +14,27 @@ public class VueBatiment implements Observer {
         this.campus.addObserver(this);
     }
 
-    public void afficherBatiment() {
-        this.campus.afficherBatiment(new BatimentVisiteur(), numeroBatiment);
+    public String afficherBatiment() {
+        return this.campus.afficherBatiment(new BatimentVisiteur(), numeroBatiment);
+    }
+
+    public boolean modifierNumeroBatiment(int nouveauNumero) {
+        Integer numeroModifier = this.campus.modifierNumeroBatiment(numeroBatiment, nouveauNumero);
+        if(numeroModifier != null) {
+            this.numeroBatiment = numeroModifier;
+            return true;
+        }
+
+        return false;
+    }
+
+    public boolean modifierNomBatiment(String nouveauNom) {
+        String nomModifier = this.campus.modifierNomBatiment(numeroBatiment, nouveauNom);
+        return nomModifier != null;
+    }
+
+    public boolean supprimerBatiment() {
+        return this.campus.supprimeBatiment(numeroBatiment);
     }
 
     @Override

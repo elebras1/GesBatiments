@@ -8,7 +8,7 @@ import org.elebras.gesbatiments.visiteur.Visiteur;
 public class Piece implements Visitable {
     private Integer surface;
     private Boolean estBureau;
-    private final Integer numero;
+    private Integer numero;
     private Etage etage;
 
     @JsonCreator
@@ -40,6 +40,10 @@ public class Piece implements Visitable {
 
     public Integer getNumero() {
         return numero;
+    }
+
+    public void setNumero(Integer numero) {
+        this.numero = numero;
     }
 
     public Etage getEtage() {

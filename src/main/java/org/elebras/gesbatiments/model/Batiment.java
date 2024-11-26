@@ -74,11 +74,14 @@ public class Batiment implements Visitable {
         visiteur.visite(this);
         for (Etage etage : etages) {
             etage.accept(visiteur);
-        }
-        for (Piece piece : pieces) {
-            piece.accept(visiteur);
+            for (Piece piece : pieces) {
+                if (piece.getEtage() != null && piece.getEtage().equals(etage)) {
+                    piece.accept(visiteur);
+                }
+            }
         }
     }
+
 
     @Override
     public boolean equals(Object o) {

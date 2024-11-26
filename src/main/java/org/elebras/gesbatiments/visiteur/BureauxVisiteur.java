@@ -5,23 +5,28 @@ import org.elebras.gesbatiments.model.Etage;
 import org.elebras.gesbatiments.model.Piece;
 
 public class BureauxVisiteur implements Visiteur {
+    private StringBuilder result = new StringBuilder();
+
     @Override
     public void visite(Batiment batiment) {
-        System.out.println("Bâtiment " + batiment.getNom() + " (" + batiment.getNumero() + ")");
-        for (Etage etage : batiment.getEtages()) {
-            etage.accept(this);
-        }
+        this.result.append("Bâtiment ").append(batiment.getNom())
+                .append(" (").append(batiment.getNumero()).append(")\n");
     }
 
     @Override
     public void visite(Etage etage) {
-        System.out.println(" Etage " + etage.getNumero() + ":");
+        this.result.append(" Etage ").append(etage.getNumero()).append(":\n");
     }
 
     @Override
     public void visite(Piece piece) {
         if (piece.getEstBureau()) {
-            System.out.println(" Bureau " + piece.getNumero() + " - Surface: " + piece.getSurface() + " m²");
+            this.result.append(" Bureau ").append(piece.getNumero())
+                    .append(" - Surface: ").append(piece.getSurface()).append(" m²\n");
         }
+    }
+
+    public String getResult() {
+        return this.result.toString();
     }
 }

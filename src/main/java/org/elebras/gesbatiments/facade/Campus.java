@@ -27,14 +27,14 @@ public class Campus implements Observable {
         this.observers = new ArrayList<>();
     }
 
-    public int construireBatiment(String nom, int nbPieceParEtage, int nbBureau, int surfacePiece) {
+    public int ajouterBatiment(String nom, int nbPieceParEtage, int nbBureau, int surfacePiece) {
         Batiment batiment = this.factory.construire(nom, nbPieceParEtage, nbBureau, surfacePiece);
         this.batiments.add(batiment);
         this.notifyObservers();
         return batiment.getNumero();
     }
 
-    public List<Integer> construireBatiments(File file) {
+    public List<Integer> ajouterBatiments(File file) {
         List<Batiment> batimentsConstruits = this.jsonFactory.creerListeBatimentsByJson(file);
 
         List<Integer> batimentsNumero = new ArrayList<>();
@@ -53,20 +53,36 @@ public class Campus implements Observable {
     }
 
 
-    public void setNumeroPremierePieceConstruction(int numeroPremierePiece) {
+    public void setNumeroPremierePiece(int numeroPremierePiece) {
         this.factory.setNumeroPremierePiece(numeroPremierePiece);
     }
 
-    public void setNumeroPremierEtageConstruction(int numeroPremierEtage) {
+    public void setNumeroPremierEtage(int numeroPremierEtage) {
         this.factory.setNumeroPremierEtage(numeroPremierEtage);
     }
 
-    public void setNombreEtagesConstruction(int nombreEtage) {
+    public void setNombreEtages(int nombreEtage) {
         this.factory.setNombreEtages(nombreEtage);
     }
 
-    public void setUsageConstruction(String usage) {
+    public void setUsage(String usage) {
         this.factory.setUsage(usage);
+    }
+
+    public Integer modifierNumeroBatiment(int numeroBatiment, int nouveauNumero) {
+        for (Batiment batiment : this.batiments) {
+            if (batiment.getNumero().equals(numeroBatiment)) {
+                for (Batiment batimentVoisin : this.batiments) {
+                    if (batiment != batimentVoisin && batiment.getNumero().equals(batimentVoisin.getNumero())) {
+                        return null;
+                    }
+                }
+                batiment.setNumero(nouveauNumero);
+                this.notifyObservers();
+                return batiment.getNumero();
+            }
+        }
+        return null;
     }
 
     public String modifierNomBatiment(int numeroBatiment, String nomBatiment) {
@@ -84,7 +100,6 @@ public class Campus implements Observable {
         }
         return null;
     }
-
 
     public boolean supprimeBatiment(int numeroBatiment) {
         for (Batiment batiment : this.batiments) {
@@ -110,18 +125,22 @@ public class Campus implements Observable {
         return false;
     }
 
-    public void afficherBatiments(Visiteur visiteur) {
-        for (Batiment batiment : batiments) {
-            batiment.accept(visiteur);
+    public List<String> afficherBatimentsNom(Visiteur visiteur) {
+        List<String> noms = new ArrayList<>();
+        for(Batiment batiment : batiments) {
+            noms.add(batiment.getNom());
         }
+        return noms;
     }
 
-    public void afficherBatiment(Visiteur visiteur, int numeroBatiment) {
+    public String afficherBatiment(Visiteur visiteur, int numeroBatiment) {
         for(Batiment batiment : batiments) {
             if(batiment.getNumero() == numeroBatiment) {
                 batiment.accept(visiteur);
             }
         }
+
+        return visiteur.getResult();
     }
 
     @Override

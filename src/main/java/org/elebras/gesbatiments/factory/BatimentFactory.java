@@ -9,7 +9,7 @@ import java.util.List;
 
 public class BatimentFactory {
     /**
-     * Le nombre de batiments créé .
+     * Le nombre de batiments créé.
      */
     private Integer nombreBatiment;
 

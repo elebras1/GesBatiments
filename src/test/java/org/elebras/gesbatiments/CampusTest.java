@@ -16,24 +16,24 @@ public class CampusTest {
 
     @Test
     public void contruireBatimentTest() {
-        assertNotNull(this.campus.construireBatiment("Batiment A", 9, 2, 18));
+        assertNotNull(this.campus.ajouterBatiment("Batiment A", 9, 2, 18));
     }
 
     @Test
     public void verificationBatimentTest() {
-        int numeroBatiment = this.campus.construireBatiment("Batiment A", 9, 2, 18);
+        int numeroBatiment = this.campus.ajouterBatiment("Batiment A", 9, 2, 18);
         assertTrue(this.campus.verification(numeroBatiment));
     }
 
     @Test
     public void detruireBatimentTest() {
-        int numeroBatiment = this.campus.construireBatiment("Batiment A", 9, 2, 18);
+        int numeroBatiment = this.campus.ajouterBatiment("Batiment A", 9, 2, 18);
         assertTrue(this.campus.supprimeBatiment(numeroBatiment));
     }
 
     @Test
     public void modifierNomBatimentTest() {
-        int numeroBatiment = this.campus.construireBatiment("Batiment A", 9, 2, 18);
+        int numeroBatiment = this.campus.ajouterBatiment("Batiment A", 9, 2, 18);
         assertEquals("Batiment AP", this.campus.modifierNomBatiment(numeroBatiment, "Batiment AP"));
     }
 }

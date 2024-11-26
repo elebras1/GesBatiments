@@ -8,4 +8,5 @@ public interface Visiteur {
     void visite(Batiment batiment);
     void visite(Etage etage);
     void visite(Piece piece);
+    String getResult();
 }

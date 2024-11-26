@@ -40,8 +40,8 @@ public class Main {
         System.out.println("Batiment C est correct ? : " + verificateur.verifier(batimentC));
 
         Campus campus = new Campus();
-        campus.construireBatiment("Batiment A", 12, 1, 19);
-        campus.construireBatiment("Batiment B", 11, 22, 18);
+        campus.ajouterBatiment("Batiment A", 12, 1, 19);
+        campus.ajouterBatiment("Batiment B", 11, 22, 18);
         System.out.println("Campus : " + campus);
 
         BatimentJsonFactory jsonFactory = new BatimentJsonFactory();
