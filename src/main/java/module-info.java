@@ -5,8 +5,7 @@ module org.elebras.gesbatiments {
     requires com.fasterxml.jackson.databind;
     requires com.fasterxml.jackson.annotation;
 
-    opens org.elebras.gesbatiments to javafx.fxml;
+    opens org.elebras.gesbatiments.vue to javafx.fxml;
     exports org.elebras.gesbatiments;
-    exports org.elebras.gesbatiments.controller;
-    opens org.elebras.gesbatiments.controller to javafx.fxml;
+    exports org.elebras.gesbatiments.vue;
 }
