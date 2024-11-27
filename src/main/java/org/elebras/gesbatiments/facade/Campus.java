@@ -1,19 +1,19 @@
 package org.elebras.gesbatiments.facade;
 
-import org.elebras.gesbatiments.model.AjouterBatimentResult;
+import org.elebras.gesbatiments.model.AjouterBatimentResultat;
 import org.elebras.gesbatiments.model.Batiment;
 import org.elebras.gesbatiments.factory.BatimentJsonFactory;
 import org.elebras.gesbatiments.observer.Observable;
 import org.elebras.gesbatiments.observer.Observer;
 import org.elebras.gesbatiments.verificateur.BatimentVerificateur;
 import org.elebras.gesbatiments.factory.BatimentFactory;
+import org.elebras.gesbatiments.verificateur.VerificationResultat;
 import org.elebras.gesbatiments.visiteur.Visiteur;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+
+import static org.elebras.gesbatiments.verificateur.VerificationResultat.AUCUNE_ERREUR;
 
 public class Campus implements Observable {
     Set<Batiment> batiments;
@@ -28,42 +28,46 @@ public class Campus implements Observable {
         this.observers = new ArrayList<>();
     }
 
-    public AjouterBatimentResult ajouterBatiment(String nom, int nbPieceParEtage, int nbBureau, int surfacePiece) {
+    public AjouterBatimentResultat ajouterBatiment(String nom, int nbPieceParEtage, int nbBureau, int surfacePiece) {
         for (Batiment batimentVoisin : this.batiments) {
             if (nom.equals(batimentVoisin.getNom())) {
-                return AjouterBatimentResult.BATIMENT_DEJA_EXISTANT;
+                return AjouterBatimentResultat.BATIMENT_DEJA_EXISTANT;
             }
         }
 
         Batiment batiment = this.factory.construire(nom, nbPieceParEtage, nbBureau, surfacePiece);
         if (batiment == null) {
-            return AjouterBatimentResult.PARAMETRES_INVALIDES;
+            return AjouterBatimentResultat.PARAMETRES_INVALIDES;
         }
 
         this.batiments.add(batiment);
         this.notifyObservers();
-        return AjouterBatimentResult.SUCCESS;
+        return AjouterBatimentResultat.SUCCESS;
     }
 
 
-    public List<Integer> ajouterBatiments(File file) {
+    public Map<String, VerificationResultat> ajouterBatiments(File file) {
+        BatimentVerificateur batimentVerificateur = new BatimentVerificateur();
+        Map<String, VerificationResultat> batimentsResultat = new HashMap<>();
         List<Batiment> batimentsConstruits = this.jsonFactory.creerListeBatimentsByJson(file);
-        List<Integer> batimentsNumero = new ArrayList<>();
 
         for (Batiment batiment : batimentsConstruits) {
             boolean nomExistant = this.batiments.stream()
                     .anyMatch(b -> b.getNom().equals(batiment.getNom()));
 
-            if (!nomExistant && new BatimentVerificateur().verifier(batiment)) {
+            VerificationResultat batimentResultat = batimentVerificateur.verifier(batiment);
+            if (!nomExistant && batimentResultat.equals(AUCUNE_ERREUR)) {
                 this.factory.incrementNombreBatiment();
                 batiment.setNumero(this.factory.getNombreBatiment());
                 this.batiments.add(batiment);
-                batimentsNumero.add(batiment.getNumero());
+                batimentsResultat.put(batiment.getNom(), AUCUNE_ERREUR);
+            } else {
+                batimentsResultat.put(batiment.getNom(), batimentResultat);
             }
         }
 
         this.notifyObservers();
-        return batimentsNumero;
+        return batimentsResultat;
     }
 
 

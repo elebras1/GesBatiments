@@ -9,48 +9,56 @@ public class BatimentVerificateur {
     /**
      * Vérification de la numérotation des pièces.
      *
-     * @param batiment
-     * @return true si le la numérotation est correcte, sinon false.
+     * @param batiment le batiment à vérifier.
+     * @return un résultat de vérification avec un message.
      */
-    public boolean verificationPieces(final Batiment batiment) {
+    public VerificationResultat verificationPieces(final Batiment batiment) {
         int idPrecedent = -1;
         for (Piece piece : batiment.getPieces()) {
             if (piece.getNumero() < idPrecedent) {
-                return false;
+                return VerificationResultat.PIECE_ERREUR;
             }
-
             idPrecedent = piece.getNumero();
         }
 
-        return true;
+        return VerificationResultat.AUCUNE_ERREUR;
     }
 
     /**
      * Vérification de la numérotation des étages.
      *
      * @param batiment le batiment à vérifier.
-     * @return true si la numérotation est correcte, sinon false.
+     * @return un résultat de vérification avec un message.
      */
-    public boolean verificationEtages(final Batiment batiment) {
+    public VerificationResultat verificationEtages(final Batiment batiment) {
         int idPrecedent = -1;
         for (Etage etage : batiment.getEtages()) {
             if (etage.getNumero() < idPrecedent) {
-                return false;
+                return VerificationResultat.ETAGE_ERREUR;
             }
-
             idPrecedent = etage.getNumero();
         }
 
-        return true;
+        return VerificationResultat.AUCUNE_ERREUR;
     }
 
     /**
-     * Vérification d'un batiment.
+     * Vérification complète d'un batiment.
      *
      * @param batiment le batiment à vérifier.
-     * @return true si le batiment est correct sinon false.
+     * @return un résultat de vérification avec un message.
      */
-    public boolean verifier(final Batiment batiment) {
-        return this.verificationEtages(batiment) && this.verificationPieces(batiment);
+    public VerificationResultat verifier(final Batiment batiment) {
+        VerificationResultat resultEtage = this.verificationEtages(batiment);
+        if (!resultEtage.equals(VerificationResultat.AUCUNE_ERREUR)) {
+            return resultEtage;
+        }
+
+        VerificationResultat resultPiece = this.verificationPieces(batiment);
+        if (!resultPiece.equals(VerificationResultat.AUCUNE_ERREUR)) {
+            return resultPiece;
+        }
+
+        return VerificationResultat.AUCUNE_ERREUR;
     }
 }

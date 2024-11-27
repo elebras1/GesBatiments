@@ -8,12 +8,14 @@ import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.elebras.gesbatiments.facade.Campus;
-import org.elebras.gesbatiments.model.AjouterBatimentResult;
+import org.elebras.gesbatiments.model.AjouterBatimentResultat;
 import org.elebras.gesbatiments.observer.Observer;
+import org.elebras.gesbatiments.verificateur.VerificationResultat;
 import org.elebras.gesbatiments.visiteur.BatimentVisiteur;
 
 import java.io.File;
 import java.util.List;
+import java.util.Map;
 
 public class VueListeBatiments implements Observer {
     private final Campus campus;
@@ -54,7 +56,7 @@ public class VueListeBatiments implements Observer {
         }
 
         try {
-            AjouterBatimentResult result = this.campus.ajouterBatiment(
+            AjouterBatimentResultat result = this.campus.ajouterBatiment(
                     this.textNomBatiment.getText(),
                     Integer.parseInt(this.textNbPieceParEtage.getText()),
                     Integer.parseInt(this.textNbBureau.getText()),
@@ -129,8 +131,9 @@ public class VueListeBatiments implements Observer {
         if (selectedFile == null) {
             this.afficherAlerte("Erreur", "Fichier non sélectionné", "Veuillez sélectionner un fichier.");
         } else {
-            System.out.println(this.campus.ajouterBatiments(selectedFile));
-            }
+            Map<String, VerificationResultat> batimentsResultat =  this.campus.ajouterBatiments(selectedFile);
+            this.afficherBilanAjoutBatiments(batimentsResultat);
+        }
     }
 
     @FXML
@@ -181,4 +184,35 @@ public class VueListeBatiments implements Observer {
         alert.setContentText(contenu);
         alert.showAndWait();
     }
+
+    private void afficherBilanAjoutBatiments(Map<String, VerificationResultat> batimentsResultat) {
+        StringBuilder message = new StringBuilder();
+        int erreurs = 0;
+
+        for (Map.Entry<String, VerificationResultat> entry : batimentsResultat.entrySet()) {
+            String batiment = entry.getKey();
+            VerificationResultat resultat = entry.getValue();
+
+            if (resultat == VerificationResultat.AUCUNE_ERREUR) {
+                message.append("Bâtiment ").append(batiment).append(" ajouté avec succès.\n");
+            } else {
+                erreurs++;
+                message.append("Erreur pour le bâtiment ").append(batiment)
+                        .append(": ").append(resultat.getMessage()).append("\n");
+            }
+        }
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Bilan d'ajout des bâtiments");
+        alert.setHeaderText("Ajout des bâtiments terminé");
+
+        if (erreurs > 0) {
+            alert.setContentText("Erreurs rencontrées :\n" + message);
+        } else {
+            alert.setContentText("Tous les bâtiments ont été ajoutés avec succès.\n" + message);
+        }
+
+        alert.showAndWait();
+    }
+
 }

@@ -3,14 +3,14 @@ package org.elebras.gesbatiments;
 import org.elebras.gesbatiments.verificateur.BatimentVerificateur;
 import org.elebras.gesbatiments.model.*;
 import org.elebras.gesbatiments.factory.BatimentFactory;
+import org.elebras.gesbatiments.verificateur.VerificationResultat;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class BatimentVerificateurTest {
 
@@ -28,7 +28,7 @@ public class BatimentVerificateurTest {
 
         for(int i = 0; i < nombreBatiments; i++) {
             Batiment batiment = this.factory.construire(nomCommun + i, 15, 3, 25);
-            assertTrue(new BatimentVerificateur().verifier(batiment));
+            assertEquals(new BatimentVerificateur().verifier(batiment), VerificationResultat.AUCUNE_ERREUR);
         }
     }
 
@@ -41,6 +41,6 @@ public class BatimentVerificateurTest {
         pieces.add(new Piece(18, true, 4, etage));
         pieces.add(new Piece(18, true, 2, etage));
         Batiment batiment = new Batiment(2, "Batiment 2", "Education", pieces, etages);
-        assertFalse(new BatimentVerificateur().verifier(batiment));
+        assertEquals(new BatimentVerificateur().verifier(batiment), VerificationResultat.AUCUNE_ERREUR);
     }
 }
