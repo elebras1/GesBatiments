@@ -5,11 +5,15 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.ScrollPane?>
 
+<?import javafx.scene.layout.HBox?>
 <VBox xmlns:fx="http://javafx.com/fxml" spacing="10" alignment="TOP_CENTER" xmlns="http://javafx.com/javafx/8.0.171">
     <ScrollPane fitToWidth="true">
         <TextArea fx:id="batimentInfoTextArea" editable="false" wrapText="true" prefHeight="400" />
     </ScrollPane>
-
+    <HBox alignment="CENTER" spacing="20">
+        <Button text="Affichage mode 1" onAction="#afficherVisiteurBatiment"/>
+        <Button text="Affichage mode 2" onAction="#afficherVisiteurBureaux"/>
+    </HBox>
     <TextField fx:id="nomBatimentField" promptText="Nom du bâtiment" />
     <Button text="Modifier le nom" onAction="#modifierNomBatiment"/>
 </VBox>

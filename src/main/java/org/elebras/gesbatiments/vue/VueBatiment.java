@@ -6,6 +6,7 @@ import javafx.scene.control.TextField;
 import org.elebras.gesbatiments.facade.Campus;
 import org.elebras.gesbatiments.observer.Observer;
 import org.elebras.gesbatiments.visiteur.BatimentVisiteur;
+import org.elebras.gesbatiments.visiteur.BureauxVisiteur;
 
 public class VueBatiment implements Observer {
     private final Campus campus;
@@ -23,10 +24,25 @@ public class VueBatiment implements Observer {
 
     public void initialize() {
         this.batimentInfoTextArea.setText(this.campus.afficherBatiment(new BatimentVisiteur(), this.numeroBatiment));
+        this.update();
+    }
+
+    @FXML
+    public void afficherVisiteurBatiment() {
+        this.batimentInfoTextArea.setText(this.campus.afficherBatiment(new BatimentVisiteur(), this.numeroBatiment));
+    }
+
+    @FXML
+    public void afficherVisiteurBureaux() {
+        this.batimentInfoTextArea.setText(this.campus.afficherBatiment(new BureauxVisiteur(), this.numeroBatiment));
     }
 
     @FXML
     public void modifierNomBatiment() {
+        if(this.nomBatimentField.getText().isEmpty()) {
+            return;
+        }
+
         this.campus.modifierNomBatiment(this.numeroBatiment, this.nomBatimentField.getText());
     }
 
