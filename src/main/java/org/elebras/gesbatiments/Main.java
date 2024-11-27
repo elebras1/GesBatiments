@@ -34,7 +34,7 @@ public class Main {
         System.out.println(batimentC);
         System.out.println("Nombre de pieces : " + batimentC.getPieces().size());
 
-        BatimentVerificateur verificateur = BatimentVerificateur.getInstance();
+        BatimentVerificateur verificateur = new BatimentVerificateur();
         System.out.println("Batiment A est correct ? : " + verificateur.verifier(batimentA));
         System.out.println("Batiment B est correct ? : " + verificateur.verifier(batimentB));
         System.out.println("Batiment C est correct ? : " + verificateur.verifier(batimentC));

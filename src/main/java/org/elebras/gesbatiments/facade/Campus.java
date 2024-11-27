@@ -54,7 +54,7 @@ public class Campus implements Observable {
             boolean nomExistant = this.batiments.stream()
                     .anyMatch(b -> b.getNom().equals(batiment.getNom()));
 
-            if (!nomExistant && BatimentVerificateur.getInstance().verifier(batiment)) {
+            if (!nomExistant && new BatimentVerificateur().verifier(batiment)) {
                 this.factory.incrementNombreBatiment();
                 batiment.setNumero(this.factory.getNombreBatiment());
                 this.batiments.add(batiment);

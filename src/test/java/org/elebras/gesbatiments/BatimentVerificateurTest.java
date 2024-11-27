@@ -28,7 +28,7 @@ public class BatimentVerificateurTest {
 
         for(int i = 0; i < nombreBatiments; i++) {
             Batiment batiment = this.factory.construire(nomCommun + i, 15, 3, 25);
-            assertTrue(BatimentVerificateur.getInstance().verifier(batiment));
+            assertTrue(new BatimentVerificateur().verifier(batiment));
         }
     }
 
@@ -41,6 +41,6 @@ public class BatimentVerificateurTest {
         pieces.add(new Piece(18, true, 4, etage));
         pieces.add(new Piece(18, true, 2, etage));
         Batiment batiment = new Batiment(2, "Batiment 2", "Education", pieces, etages);
-        assertFalse(BatimentVerificateur.getInstance().verifier(batiment));
+        assertFalse(new BatimentVerificateur().verifier(batiment));
     }
 }

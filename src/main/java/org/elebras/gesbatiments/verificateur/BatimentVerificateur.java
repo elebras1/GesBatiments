@@ -5,24 +5,6 @@ import org.elebras.gesbatiments.model.Etage;
 import org.elebras.gesbatiments.model.Piece;
 
 public class BatimentVerificateur {
-    private static BatimentVerificateur verificateur = null;
-
-    private BatimentVerificateur() {
-    }
-
-    /**
-     * Retourne l'instance unique de BatimentVerificateur (singleton).
-     * Si l'instance n'existe pas encore, elle est créée.
-     *
-     * @return l'instance unique de BatimentVerificateur
-     */
-    public static BatimentVerificateur getInstance() {
-        if(verificateur == null) {
-            verificateur = new BatimentVerificateur();
-        }
-
-        return verificateur;
-    }
 
     /**
      * Vérification de la numérotation des pièces.
@@ -46,8 +28,8 @@ public class BatimentVerificateur {
     /**
      * Vérification de la numérotation des étages.
      *
-     * @param batiment
-     * @return true si le la numérotation est correcte, sinon false
+     * @param batiment le batiment à vérifier.
+     * @return true si la numérotation est correcte, sinon false.
      */
     public boolean verificationEtages(final Batiment batiment) {
         int idPrecedent = -1;
@@ -65,7 +47,7 @@ public class BatimentVerificateur {
     /**
      * Vérification d'un batiment.
      *
-     * @param batiment
+     * @param batiment le batiment à vérifier.
      * @return true si le batiment est correct sinon false.
      */
     public boolean verifier(final Batiment batiment) {
