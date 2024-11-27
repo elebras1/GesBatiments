@@ -11,7 +11,7 @@
             <VBox spacing="10" alignment="CENTER" prefWidth="400">
                 <Label text="Importer des Bâtiments depuis un fichier Json:" />
                 <HBox spacing="10" alignment="CENTER">
-                    <Button text="Parcourir" onAction="#handleChoisirFichier" />
+                    <Button text="Parcourir" onAction="#ouvrirFichierJson" />
                 </HBox>
 
                 <Label text="Ajouter un Bâtiment:" />
@@ -25,7 +25,7 @@
                     <Label text="Surface d'une pièces:" GridPane.rowIndex="3" GridPane.columnIndex="0" />
                     <TextField fx:id="textSurfacePiece" GridPane.rowIndex="3" GridPane.columnIndex="1" />
                 </GridPane>
-                <Button text="Ajouter Bâtiment" onAction="#handleAjouterBatiment" />
+                <Button text="Ajouter Bâtiment" onAction="#ajouterBatiment" />
 
                 <Label text="Paramètre d'ajout:" />
                 <GridPane hgap="10" vgap="10" alignment="CENTER">
@@ -38,14 +38,18 @@
                     <Label text="Usage:" GridPane.rowIndex="3" GridPane.columnIndex="0" />
                     <TextField fx:id="textUsage" GridPane.rowIndex="3" GridPane.columnIndex="1" />
                 </GridPane>
-                <Button text="Appliquer les Paramètres" onAction="#handleConfigurerParametres" />
+                <Button text="Appliquer les Paramètres" onAction="#configurerParametres" />
             </VBox>
 
             <VBox spacing="10" alignment="CENTER" prefWidth="300">
                 <Label text="Liste des Bâtiments:" />
                 <ListView fx:id="listViewBatiments" prefHeight="410" prefWidth="300" />
-                <Button text="Supprimer le bâtiment" onAction="#handleSupprimerBatiment"/>
+                <HBox alignment="CENTER" spacing="20">
+                    <Button text="Ouvrir" onAction="#ouvrirBatiment"/>
+                    <Button text="Supprimer" onAction="#supprimerBatiment"/>
+                </HBox>
             </VBox>
+
         </SplitPane>
     </center>
 </BorderPane>

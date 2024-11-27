@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.ScrollPane?>
+
+<VBox xmlns:fx="http://javafx.com/fxml" spacing="10" alignment="TOP_CENTER" xmlns="http://javafx.com/javafx/8.0.171">
+    <ScrollPane fitToWidth="true">
+        <TextArea fx:id="batimentInfoTextArea" editable="false" wrapText="true" prefHeight="400" />
+    </ScrollPane>
+
+    <TextField fx:id="nomBatimentField" promptText="Nom du bâtiment" />
+    <Button text="Modifier le nom" onAction="#modifierNomBatiment"/>
+</VBox>

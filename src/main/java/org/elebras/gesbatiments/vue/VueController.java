@@ -9,7 +9,7 @@ import org.elebras.gesbatiments.facade.Campus;
 import java.io.IOException;
 
 public class VueController extends Application {
-    private Campus campus;
+    private final Campus campus;
 
     public VueController() {
         this.campus = new Campus();
@@ -23,7 +23,7 @@ public class VueController extends Application {
     public void ouvrirVueListeBatiments(Stage stage) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("listeBatiments.fxml"));
-            fxmlLoader.setController(new VueListeBatiments(this.campus, stage));
+            fxmlLoader.setController(new VueListeBatiments(this.campus, stage, this));
             Scene scene = new Scene(fxmlLoader.load(), 720, 520);
             stage.setScene(scene);
             stage.show();
@@ -32,10 +32,10 @@ public class VueController extends Application {
         }
     }
 
-    public void ouvrirVueBatiment(Stage stage) {
+    public void ouvrirVueBatiment(Stage stage, int numeroBatiment) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("listeBatiments.fxml"));
-            fxmlLoader.setController(new VueListeBatiments(this.campus, stage));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("batiment.fxml"));
+            fxmlLoader.setController(new VueBatiment(this.campus, numeroBatiment));
             Scene scene = new Scene(fxmlLoader.load(), 720, 520);
             stage.setScene(scene);
             stage.show();

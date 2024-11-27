@@ -108,6 +108,15 @@ public class Campus implements Observable {
         return -1;
     }
 
+    public String getNomBatiment(int numeroBatiment) {
+        for (Batiment batiment : this.batiments) {
+            if (batiment.getNumero().equals(numeroBatiment)) {
+                return batiment.getNom();
+            }
+        }
+        return null;
+    }
+
     public boolean supprimeBatiment(int numeroBatiment) {
         for (Batiment batiment : this.batiments) {
             if (batiment.getNumero().equals(numeroBatiment)) {

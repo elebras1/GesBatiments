@@ -16,8 +16,9 @@ import java.io.File;
 import java.util.List;
 
 public class VueListeBatiments implements Observer {
-    private Campus campus;
-    private Stage stage;
+    private final Campus campus;
+    private final Stage stage;
+    private final VueController vueController;
     @FXML
     public TextField textNomBatiment;
     @FXML
@@ -37,14 +38,15 @@ public class VueListeBatiments implements Observer {
     @FXML
     public ListView<String> listViewBatiments;
 
-    public VueListeBatiments(Campus campus, Stage stage) {
+    public VueListeBatiments(Campus campus, Stage stage, VueController vueController) {
         this.campus = campus;
         this.campus.addObserver(this);
         this.stage = stage;
+        this.vueController = vueController;
     }
 
     @FXML
-    public void handleAjouterBatiment(ActionEvent actionEvent) {
+    public void ajouterBatiment(ActionEvent actionEvent) {
         if (this.textNomBatiment.getText().isEmpty() || this.textNbPieceParEtage.getText().isEmpty() ||
                 this.textNbBureau.getText().isEmpty() || this.textSurfacePiece.getText().isEmpty()) {
             this.afficherAlerte("Erreur", "Champs vides", "Veuillez remplir tous les champs.");
@@ -82,7 +84,7 @@ public class VueListeBatiments implements Observer {
 
 
     @FXML
-    public void handleConfigurerParametres(ActionEvent actionEvent) {
+    public void configurerParametres(ActionEvent actionEvent) {
         if (this.textNombreEtage.getText().isEmpty() || this.textNumeroPremierEtage.getText().isEmpty() ||
                 this.textNumeroPremierePiece.getText().isEmpty() || this.textUsage.getText().isEmpty()) {
             this.afficherAlerte("Erreur", "Champs vides", "Veuillez remplir tous les champs.");
@@ -115,7 +117,7 @@ public class VueListeBatiments implements Observer {
 
 
     @FXML
-    public void handleChoisirFichier(ActionEvent actionEvent) {
+    public void ouvrirFichierJson(ActionEvent actionEvent) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Sélectionner un fichier JSON");
 
@@ -132,7 +134,24 @@ public class VueListeBatiments implements Observer {
     }
 
     @FXML
-    public void handleSupprimerBatiment(ActionEvent actionEvent) {
+    public void ouvrirBatiment(ActionEvent actionEvent) {
+        String nomBatiment = this.listViewBatiments.getSelectionModel().getSelectedItem();
+        if (nomBatiment == null) {
+            this.afficherAlerte("Erreur", "Bâtiment non sélectionné", "Veuillez sélectionner un bâtiment.");
+            return;
+        }
+
+        int numeroBatiment = this.campus.getNumeroBatiment(nomBatiment);
+        if(numeroBatiment == -1) {
+            this.afficherAlerte("Erreur", "Bâtiment non trouvé", "Le bâtiment sélectionné n'existe pas.");
+            return;
+        }
+
+        this.vueController.ouvrirVueBatiment(this.stage, numeroBatiment);
+    }
+
+    @FXML
+    public void supprimerBatiment(ActionEvent actionEvent) {
         String nomBatiment = this.listViewBatiments.getSelectionModel().getSelectedItem();
         if (nomBatiment == null) {
             this.afficherAlerte("Erreur", "Bâtiment non sélectionné", "Veuillez sélectionner un bâtiment.");
