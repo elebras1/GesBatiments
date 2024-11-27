@@ -8,7 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.elebras.gesbatiments.facade.Campus;
-import org.elebras.gesbatiments.model.AjouterBatimentResultat;
+import org.elebras.gesbatiments.facade.AjouterBatimentResultat;
 import org.elebras.gesbatiments.observer.Observer;
 import org.elebras.gesbatiments.verificateur.VerificationResultat;
 import org.elebras.gesbatiments.visiteur.BatimentVisiteur;

@@ -1,6 +1,5 @@
 package org.elebras.gesbatiments.facade;
 
-import org.elebras.gesbatiments.model.AjouterBatimentResultat;
 import org.elebras.gesbatiments.model.Batiment;
 import org.elebras.gesbatiments.factory.BatimentJsonFactory;
 import org.elebras.gesbatiments.observer.Observable;

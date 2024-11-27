@@ -1,4 +1,4 @@
-package org.elebras.gesbatiments.model;
+package org.elebras.gesbatiments.facade;
 
 public enum AjouterBatimentResultat {
     SUCCESS,
