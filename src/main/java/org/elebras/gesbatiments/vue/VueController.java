@@ -23,7 +23,19 @@ public class VueController extends Application {
     public void ouvrirVueListeBatiments(Stage stage) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("listeBatiments.fxml"));
-            fxmlLoader.setController(new VueListeBatiments(this.campus));
+            fxmlLoader.setController(new VueListeBatiments(this.campus, stage));
+            Scene scene = new Scene(fxmlLoader.load(), 720, 520);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void ouvrirVueBatiment(Stage stage) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("listeBatiments.fxml"));
+            fxmlLoader.setController(new VueListeBatiments(this.campus, stage));
             Scene scene = new Scene(fxmlLoader.load(), 720, 520);
             stage.setScene(scene);
             stage.show();

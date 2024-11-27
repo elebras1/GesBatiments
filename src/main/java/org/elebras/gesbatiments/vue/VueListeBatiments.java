@@ -34,20 +34,29 @@ public class VueListeBatiments implements Observer {
     @FXML
     public TextField textUsage;
     @FXML
-    public ListView listViewBatiments;
+    public ListView<String> listViewBatiments;
 
-    public VueListeBatiments(Campus campus) {
+    public VueListeBatiments(Campus campus, Stage stage) {
         this.campus = campus;
         this.campus.addObserver(this);
     }
 
     @FXML
     public void handleAjouterBatiment(ActionEvent actionEvent) {
-        this.campus.ajouterBatiment(
+        int idBatiment = this.campus.ajouterBatiment(
                 this.textNomBatiment.getText(),
                 Integer.valueOf(this.textNbPieceParEtage.getText()),
                 Integer.valueOf(this.textNbBureau.getText()),
                 Integer.valueOf(this.textSurfacePiece.getText()));
+
+        System.out.println(idBatiment);
+        if(idBatiment == -1) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur");
+            alert.setHeaderText("Batiment déjà existant");
+            alert.setContentText("Le batiment " + this.textNomBatiment.getText() + " existe déjà.");
+            alert.showAndWait();
+        }
     }
 
     @FXML
@@ -66,8 +75,7 @@ public class VueListeBatiments implements Observer {
         FileChooser.ExtensionFilter jsonFilter = new FileChooser.ExtensionFilter("Fichiers JSON (*.json)", "*.json");
         fileChooser.getExtensionFilters().add(jsonFilter);
 
-        Stage stage = (Stage) ((javafx.scene.Node) actionEvent.getSource()).getScene().getWindow();
-        File selectedFile = fileChooser.showOpenDialog(stage);
+        File selectedFile = fileChooser.showOpenDialog(this.stage);
 
         if (selectedFile == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -75,12 +83,15 @@ public class VueListeBatiments implements Observer {
             alert.setHeaderText("Aucun fichier sélectionné");
             alert.setContentText("Veuillez sélectionner un fichier JSON valide.");
             alert.showAndWait();
-        }
+        } else {
+            System.out.println(this.campus.ajouterBatiments(selectedFile));
+            }
     }
 
     @Override
     public void update() {
         List<String> nomBatiments = this.campus.afficherBatimentsNom(new BatimentVisiteur());
+        this.listViewBatiments.getItems().clear();
         this.listViewBatiments.getItems().addAll(nomBatiments);
     }
 

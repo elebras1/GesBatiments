@@ -164,4 +164,11 @@ public class BatimentFactory {
     public Integer getNombreBatiment() {
         return nombreBatiment;
     }
+
+    /**
+     * Incrémente le nombre de batiments.
+     */
+    public void incrementNombreBatiment() {
+        this.nombreBatiment++;
+    }
 }

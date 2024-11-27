@@ -30,7 +30,7 @@ public class Main {
 
         factory.setNombreEtages(18);
         factory.setUsage("Administration");
-        Batiment batimentC = factory.construire("B", 11, 22, 18);
+        Batiment batimentC = factory.construire("C", 11, 22, 18);
         System.out.println(batimentC);
         System.out.println("Nombre de pieces : " + batimentC.getPieces().size());
 
@@ -49,7 +49,6 @@ public class Main {
         batiments.add(batimentA);
         batiments.add(batimentB);
         batiments.add(batimentC);
-        jsonFactory.creerJsonListeBatiments(new File("target/batiments2.json"), batiments);
-        System.out.println("Batiments créer : " + jsonFactory.creerListeBatimentsByJson(new File("target/batiments.json")));
+        jsonFactory.creerJsonListeBatiments(new File("batiments.json"), batiments);
     }
 }

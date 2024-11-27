@@ -29,6 +29,11 @@ public class Campus implements Observable {
 
     public int ajouterBatiment(String nom, int nbPieceParEtage, int nbBureau, int surfacePiece) {
         Batiment batiment = this.factory.construire(nom, nbPieceParEtage, nbBureau, surfacePiece);
+        for(Batiment batimentVoisin : this.batiments) {
+            if(batiment.getNom().equals(batimentVoisin.getNom())) {
+                return -1;
+            }
+        }
         this.batiments.add(batiment);
         this.notifyObservers();
         return batiment.getNumero();
@@ -40,13 +45,12 @@ public class Campus implements Observable {
         List<Integer> batimentsNumero = new ArrayList<>();
         for(Batiment batiment : batimentsConstruits) {
             if(BatimentVerificateur.getInstance().verifier(batiment)) {
-                return null;
+                batimentsNumero.add(batiment.getNumero());
+                this.batiments.add(batiment);
+                this.factory.incrementNombreBatiment();
             }
-
-            batimentsNumero.add(batiment.getNumero());
         }
 
-        this.batiments.addAll(batimentsConstruits);
         this.notifyObservers();
 
         return batimentsNumero;
@@ -109,19 +113,6 @@ public class Campus implements Observable {
                 return true;
             }
         }
-        return false;
-    }
-
-
-    public boolean verification(int numeroBatiment) {
-        for (Batiment batiment : this.batiments) {
-            if(batiment.getNumero().equals(numeroBatiment)) {
-                this.notifyObservers();
-                return BatimentVerificateur.getInstance().verifier(batiment);
-            }
-        }
-        this.notifyObservers();
-
         return false;
     }
 
