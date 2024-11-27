@@ -47,7 +47,7 @@ public class VueListeBatiments implements Observer {
     public void handleAjouterBatiment(ActionEvent actionEvent) {
         if (this.textNomBatiment.getText().isEmpty() || this.textNbPieceParEtage.getText().isEmpty() ||
                 this.textNbBureau.getText().isEmpty() || this.textSurfacePiece.getText().isEmpty()) {
-            this.afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Champs vides", "Veuillez remplir tous les champs.");
+            this.afficherAlerte("Erreur", "Champs vides", "Veuillez remplir tous les champs.");
             return;
         }
 
@@ -60,11 +60,11 @@ public class VueListeBatiments implements Observer {
 
             switch (result) {
                 case BATIMENT_DEJA_EXISTANT:
-                    this.afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Bâtiment déjà existant",
+                    this.afficherAlerte("Erreur", "Bâtiment déjà existant",
                             "Un bâtiment avec le nom " + this.textNomBatiment.getText() + " existe déjà.");
                     break;
                 case PARAMETRES_INVALIDES:
-                    this.afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Paramètres invalides",
+                    this.afficherAlerte("Erreur", "Paramètres invalides",
                             """
                                     Les paramètres fournis ne sont pas valides :
                                     - Le nombre de pièces par étage doit être supérieur ou égal à 1.
@@ -74,7 +74,7 @@ public class VueListeBatiments implements Observer {
             }
 
         } catch (NumberFormatException e) {
-            this.afficherAlerte(Alert.AlertType.ERROR, "Erreur de saisie", "Valeur non valide",
+            this.afficherAlerte("Erreur de saisie", "Valeur non valide",
                     "Veuillez entrer des valeurs numériques valides pour les champs 'nombre' et 'surface'.");
         }
     }
@@ -83,11 +83,36 @@ public class VueListeBatiments implements Observer {
 
     @FXML
     public void handleConfigurerParametres(ActionEvent actionEvent) {
-        this.campus.setNombreEtages(Integer.valueOf(this.textNombreEtage.getText()));
-        this.campus.setNumeroPremierEtage(Integer.valueOf(this.textNumeroPremierEtage.getText()));
-        this.campus.setNumeroPremierePiece(Integer.valueOf(this.textNumeroPremierePiece.getText()));
-        this.campus.setUsage(this.textUsage.getText());
+        if (this.textNombreEtage.getText().isEmpty() || this.textNumeroPremierEtage.getText().isEmpty() ||
+                this.textNumeroPremierePiece.getText().isEmpty() || this.textUsage.getText().isEmpty()) {
+            this.afficherAlerte("Erreur", "Champs vides", "Veuillez remplir tous les champs.");
+            return;
+        }
+
+        try {
+            int nombreEtages = Integer.parseInt(this.textNombreEtage.getText());
+            int numeroPremierEtage = Integer.parseInt(this.textNumeroPremierEtage.getText());
+            int numeroPremierePiece = Integer.parseInt(this.textNumeroPremierePiece.getText());
+
+            this.campus.setNombreEtages(nombreEtages);
+            this.campus.setNumeroPremierEtage(numeroPremierEtage);
+            this.campus.setNumeroPremierePiece(numeroPremierePiece);
+            this.campus.setUsage(this.textUsage.getText());
+
+        } catch (NumberFormatException e) {
+            this.afficherAlerte(
+                    "Erreur de saisie",
+                    "Valeur non valide",
+                    """
+                            Veuillez entrer des valeurs numériques valides pour les champs :
+                            - 'nombre d'étages'
+                            - 'numéro du premier étage'
+                            - 'numéro de la première pièce'."""
+            );
+
+        }
     }
+
 
     @FXML
     public void handleChoisirFichier(ActionEvent actionEvent) {
@@ -100,10 +125,27 @@ public class VueListeBatiments implements Observer {
         File selectedFile = fileChooser.showOpenDialog(this.stage);
 
         if (selectedFile == null) {
-            this.afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Fichier non sélectionné", "Veuillez sélectionner un fichier.");
+            this.afficherAlerte("Erreur", "Fichier non sélectionné", "Veuillez sélectionner un fichier.");
         } else {
             System.out.println(this.campus.ajouterBatiments(selectedFile));
             }
+    }
+
+    @FXML
+    public void handleSupprimerBatiment(ActionEvent actionEvent) {
+        String nomBatiment = this.listViewBatiments.getSelectionModel().getSelectedItem();
+        if (nomBatiment == null) {
+            this.afficherAlerte("Erreur", "Bâtiment non sélectionné", "Veuillez sélectionner un bâtiment.");
+            return;
+        }
+
+        int numeroBatiment = this.campus.getNumeroBatiment(nomBatiment);
+        if(numeroBatiment == -1) {
+            this.afficherAlerte("Erreur", "Bâtiment non trouvé", "Le bâtiment sélectionné n'existe pas.");
+            return;
+        }
+
+        this.campus.supprimeBatiment(numeroBatiment);
     }
 
     @Override
@@ -113,8 +155,8 @@ public class VueListeBatiments implements Observer {
         this.listViewBatiments.getItems().addAll(nomBatiments);
     }
 
-    private void afficherAlerte(Alert.AlertType type, String titre, String enTete, String contenu) {
-        Alert alert = new Alert(type);
+    private void afficherAlerte(String titre, String enTete, String contenu) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(titre);
         alert.setHeaderText(enTete);
         alert.setContentText(contenu);

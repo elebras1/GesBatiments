@@ -43,7 +43,8 @@
 
             <VBox spacing="10" alignment="CENTER" prefWidth="300">
                 <Label text="Liste des Bâtiments:" />
-                <ListView fx:id="listViewBatiments" prefHeight="400" prefWidth="300" />
+                <ListView fx:id="listViewBatiments" prefHeight="410" prefWidth="300" />
+                <Button text="Supprimer le bâtiment" onAction="#handleSupprimerBatiment"/>
             </VBox>
         </SplitPane>
     </center>

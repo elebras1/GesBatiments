@@ -83,22 +83,6 @@ public class Campus implements Observable {
         this.factory.setUsage(usage);
     }
 
-    public Integer modifierNumeroBatiment(int numeroBatiment, int nouveauNumero) {
-        for (Batiment batiment : this.batiments) {
-            if (batiment.getNumero().equals(numeroBatiment)) {
-                for (Batiment batimentVoisin : this.batiments) {
-                    if (batiment != batimentVoisin && batiment.getNumero().equals(batimentVoisin.getNumero())) {
-                        return null;
-                    }
-                }
-                batiment.setNumero(nouveauNumero);
-                this.notifyObservers();
-                return batiment.getNumero();
-            }
-        }
-        return null;
-    }
-
     public String modifierNomBatiment(int numeroBatiment, String nomBatiment) {
         for (Batiment batiment : this.batiments) {
             if (batiment.getNumero().equals(numeroBatiment)) {
@@ -113,6 +97,15 @@ public class Campus implements Observable {
             }
         }
         return null;
+    }
+
+    public int getNumeroBatiment(String nomBatiment) {
+        for (Batiment batiment : this.batiments) {
+            if (batiment.getNom().equals(nomBatiment)) {
+                return batiment.getNumero();
+            }
+        }
+        return -1;
     }
 
     public boolean supprimeBatiment(int numeroBatiment) {
