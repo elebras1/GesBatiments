@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.elebras.gesbatiments.visiteur.Visitable;
 import org.elebras.gesbatiments.visiteur.Visiteur;
 
+import java.util.Objects;
+
 public class Etage implements Visitable {
     private Integer numero;
 
@@ -24,6 +26,19 @@ public class Etage implements Visitable {
     @Override
     public void accept(Visiteur visiteur) {
         visiteur.visite(this);
+    }
+
+    @Override
+    public final boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Etage etage)) return false;
+
+        return Objects.equals(numero, etage.numero);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(numero);
     }
 
     @Override
