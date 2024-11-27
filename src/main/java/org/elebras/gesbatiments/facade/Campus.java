@@ -1,5 +1,6 @@
 package org.elebras.gesbatiments.facade;
 
+import org.elebras.gesbatiments.model.AjouterBatimentResult;
 import org.elebras.gesbatiments.model.Batiment;
 import org.elebras.gesbatiments.factory.BatimentJsonFactory;
 import org.elebras.gesbatiments.observer.Observable;
@@ -27,22 +28,23 @@ public class Campus implements Observable {
         this.observers = new ArrayList<>();
     }
 
-    public int ajouterBatiment(String nom, int nbPieceParEtage, int nbBureau, int surfacePiece) {
-        for(Batiment batimentVoisin : this.batiments) {
-            if(nom.equals(batimentVoisin.getNom())) {
-                return -1;
+    public AjouterBatimentResult ajouterBatiment(String nom, int nbPieceParEtage, int nbBureau, int surfacePiece) {
+        for (Batiment batimentVoisin : this.batiments) {
+            if (nom.equals(batimentVoisin.getNom())) {
+                return AjouterBatimentResult.BATIMENT_DEJA_EXISTANT;
             }
         }
 
         Batiment batiment = this.factory.construire(nom, nbPieceParEtage, nbBureau, surfacePiece);
-        if(batiment == null) {
-            return -1;
+        if (batiment == null) {
+            return AjouterBatimentResult.PARAMETRES_INVALIDES;
         }
 
         this.batiments.add(batiment);
         this.notifyObservers();
-        return batiment.getNumero();
+        return AjouterBatimentResult.SUCCESS;
     }
+
 
     public List<Integer> ajouterBatiments(File file) {
         List<Batiment> batimentsConstruits = this.jsonFactory.creerListeBatimentsByJson(file);

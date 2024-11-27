@@ -6,6 +6,7 @@ import org.elebras.gesbatiments.model.Piece;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class BatimentFactory {
     /**
@@ -56,7 +57,7 @@ public class BatimentFactory {
      * @return Un le batiment créer {@link Batiment}
      */
     public Batiment construire(String nom, Integer nbPieceParEtage, Integer nbBureau, Integer surfacePiece) {
-        if(nbPieceParEtage < 1 || surfacePiece < 9 || nom == null) {
+        if(nbPieceParEtage < 1 || surfacePiece < 9 || Objects.equals(nom, "") || nbBureau < 0) {
             return null;
         }
 

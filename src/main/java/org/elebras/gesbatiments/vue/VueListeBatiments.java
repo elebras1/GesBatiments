@@ -8,6 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.elebras.gesbatiments.facade.Campus;
+import org.elebras.gesbatiments.model.AjouterBatimentResult;
 import org.elebras.gesbatiments.observer.Observer;
 import org.elebras.gesbatiments.visiteur.BatimentVisiteur;
 
@@ -39,25 +40,46 @@ public class VueListeBatiments implements Observer {
     public VueListeBatiments(Campus campus, Stage stage) {
         this.campus = campus;
         this.campus.addObserver(this);
+        this.stage = stage;
     }
 
     @FXML
     public void handleAjouterBatiment(ActionEvent actionEvent) {
-        int idBatiment = this.campus.ajouterBatiment(
-                this.textNomBatiment.getText(),
-                Integer.parseInt(this.textNbPieceParEtage.getText()),
-                Integer.parseInt(this.textNbBureau.getText()),
-                Integer.parseInt(this.textSurfacePiece.getText()));
+        if (this.textNomBatiment.getText().isEmpty() || this.textNbPieceParEtage.getText().isEmpty() ||
+                this.textNbBureau.getText().isEmpty() || this.textSurfacePiece.getText().isEmpty()) {
+            this.afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Champs vides", "Veuillez remplir tous les champs.");
+            return;
+        }
 
-        System.out.println(idBatiment);
-        if(idBatiment == -1) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erreur");
-            alert.setHeaderText("Batiment déjà existant");
-            alert.setContentText("Le batiment " + this.textNomBatiment.getText() + " existe déjà.");
-            alert.showAndWait();
+        try {
+            AjouterBatimentResult result = this.campus.ajouterBatiment(
+                    this.textNomBatiment.getText(),
+                    Integer.parseInt(this.textNbPieceParEtage.getText()),
+                    Integer.parseInt(this.textNbBureau.getText()),
+                    Integer.parseInt(this.textSurfacePiece.getText()));
+
+            switch (result) {
+                case BATIMENT_DEJA_EXISTANT:
+                    this.afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Bâtiment déjà existant",
+                            "Un bâtiment avec le nom " + this.textNomBatiment.getText() + " existe déjà.");
+                    break;
+                case PARAMETRES_INVALIDES:
+                    this.afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Paramètres invalides",
+                            """
+                                    Les paramètres fournis ne sont pas valides :
+                                    - Le nombre de pièces par étage doit être supérieur ou égal à 1.
+                                    - La surface de chaque pièce doit être supérieure ou égale à 9 m².
+                                    - Le nombre de bureaux ne peut pas être négatif.""");
+                    break;
+            }
+
+        } catch (NumberFormatException e) {
+            this.afficherAlerte(Alert.AlertType.ERROR, "Erreur de saisie", "Valeur non valide",
+                    "Veuillez entrer des valeurs numériques valides pour les champs 'nombre' et 'surface'.");
         }
     }
+
+
 
     @FXML
     public void handleConfigurerParametres(ActionEvent actionEvent) {
@@ -78,11 +100,7 @@ public class VueListeBatiments implements Observer {
         File selectedFile = fileChooser.showOpenDialog(this.stage);
 
         if (selectedFile == null) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erreur");
-            alert.setHeaderText("Aucun fichier sélectionné");
-            alert.setContentText("Veuillez sélectionner un fichier JSON valide.");
-            alert.showAndWait();
+            this.afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Fichier non sélectionné", "Veuillez sélectionner un fichier.");
         } else {
             System.out.println(this.campus.ajouterBatiments(selectedFile));
             }
@@ -95,7 +113,11 @@ public class VueListeBatiments implements Observer {
         this.listViewBatiments.getItems().addAll(nomBatiments);
     }
 
-    public void initialize() {
-        update();
+    private void afficherAlerte(Alert.AlertType type, String titre, String enTete, String contenu) {
+        Alert alert = new Alert(type);
+        alert.setTitle(titre);
+        alert.setHeaderText(enTete);
+        alert.setContentText(contenu);
+        alert.showAndWait();
     }
 }
