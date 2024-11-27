@@ -55,7 +55,7 @@ public class BatimentFactory {
      * @param surfacePiece
      * @return Un le batiment créer {@link Batiment}
      */
-    public Batiment construire(final String nom, final Integer nbPieceParEtage, final Integer nbBureau, final Integer surfacePiece) {
+    public Batiment construire(String nom, Integer nbPieceParEtage, Integer nbBureau, Integer surfacePiece) {
         if(nbPieceParEtage < 1 || surfacePiece < 9 || nom == null) {
             return null;
         }
@@ -70,11 +70,7 @@ public class BatimentFactory {
             Etage etage = new Etage(this.numeroPremierEtage + i);
             etages.add(etage);
             for (int j = 0; j < nbPieceParEtage; j++) {
-                if (nbBureauCreer < nbBureau) {
-                    estBureau = true;
-                } else {
-                    estBureau = false;
-                }
+                estBureau = nbBureauCreer < nbBureau;
                 pieces.add(new Piece(surfacePiece, estBureau, numeroPiece++, etage));
                 nbBureauCreer++;
             }
@@ -88,7 +84,7 @@ public class BatimentFactory {
      *
      * @param numero Le numéro de la première pièce.
      */
-    public void setNumeroPremierePiece(final Integer numero) {
+    public void setNumeroPremierePiece(Integer numero) {
         this.numeroPremierePiece = numero;
     }
 
@@ -97,7 +93,7 @@ public class BatimentFactory {
      *
      * @param numero Le numéro du premier étage.
      */
-    public void setNumeroPremierEtage(final Integer numero) {
+    public void setNumeroPremierEtage(Integer numero) {
         this.numeroPremierEtage = numero;
     }
 
@@ -106,7 +102,7 @@ public class BatimentFactory {
      *
      * @param nombre Le nombre d'étages à définir.
      */
-    public void setNombreEtages(final Integer nombre) {
+    public void setNombreEtages(Integer nombre) {
         this.nombreEtages = nombre;
     }
 
@@ -115,7 +111,7 @@ public class BatimentFactory {
      *
      * @param usage L'usage du bâtiment à définir.
      */
-    public void setUsage(final String usage) {
+    public void setUsage(String usage) {
         this.usage = usage;
     }
 

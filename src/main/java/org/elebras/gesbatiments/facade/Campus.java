@@ -28,12 +28,17 @@ public class Campus implements Observable {
     }
 
     public int ajouterBatiment(String nom, int nbPieceParEtage, int nbBureau, int surfacePiece) {
-        Batiment batiment = this.factory.construire(nom, nbPieceParEtage, nbBureau, surfacePiece);
         for(Batiment batimentVoisin : this.batiments) {
-            if(batiment.getNom().equals(batimentVoisin.getNom())) {
+            if(nom.equals(batimentVoisin.getNom())) {
                 return -1;
             }
         }
+
+        Batiment batiment = this.factory.construire(nom, nbPieceParEtage, nbBureau, surfacePiece);
+        if(batiment == null) {
+            return -1;
+        }
+
         this.batiments.add(batiment);
         this.notifyObservers();
         return batiment.getNumero();
@@ -41,18 +46,21 @@ public class Campus implements Observable {
 
     public List<Integer> ajouterBatiments(File file) {
         List<Batiment> batimentsConstruits = this.jsonFactory.creerListeBatimentsByJson(file);
-
         List<Integer> batimentsNumero = new ArrayList<>();
-        for(Batiment batiment : batimentsConstruits) {
-            if(BatimentVerificateur.getInstance().verifier(batiment)) {
-                batimentsNumero.add(batiment.getNumero());
-                this.batiments.add(batiment);
+
+        for (Batiment batiment : batimentsConstruits) {
+            boolean nomExistant = this.batiments.stream()
+                    .anyMatch(b -> b.getNom().equals(batiment.getNom()));
+
+            if (!nomExistant && BatimentVerificateur.getInstance().verifier(batiment)) {
                 this.factory.incrementNombreBatiment();
+                batiment.setNumero(this.factory.getNombreBatiment());
+                this.batiments.add(batiment);
+                batimentsNumero.add(batiment.getNumero());
             }
         }
 
         this.notifyObservers();
-
         return batimentsNumero;
     }
 

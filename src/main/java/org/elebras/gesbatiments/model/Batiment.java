@@ -83,15 +83,18 @@ public class Batiment implements Visitable {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public final boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Batiment batiment)) return false;
-        return Objects.equals(numero, batiment.numero);
+
+        return Objects.equals(numero, batiment.numero) && Objects.equals(nom, batiment.nom);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(numero);
+        int result = Objects.hashCode(numero);
+        result = 31 * result + Objects.hashCode(nom);
+        return result;
     }
 
     @Override

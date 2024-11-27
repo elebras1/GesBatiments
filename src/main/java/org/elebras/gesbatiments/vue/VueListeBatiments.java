@@ -45,9 +45,9 @@ public class VueListeBatiments implements Observer {
     public void handleAjouterBatiment(ActionEvent actionEvent) {
         int idBatiment = this.campus.ajouterBatiment(
                 this.textNomBatiment.getText(),
-                Integer.valueOf(this.textNbPieceParEtage.getText()),
-                Integer.valueOf(this.textNbBureau.getText()),
-                Integer.valueOf(this.textSurfacePiece.getText()));
+                Integer.parseInt(this.textNbPieceParEtage.getText()),
+                Integer.parseInt(this.textNbBureau.getText()),
+                Integer.parseInt(this.textSurfacePiece.getText()));
 
         System.out.println(idBatiment);
         if(idBatiment == -1) {

@@ -69,6 +69,6 @@ public class BatimentVerificateur {
      * @return true si le batiment est correct sinon false.
      */
     public boolean verifier(final Batiment batiment) {
-        return verificationEtages(batiment) && verificationPieces(batiment);
+        return this.verificationEtages(batiment) && this.verificationPieces(batiment);
     }
 }

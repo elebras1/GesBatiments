@@ -8,7 +8,8 @@ module org.elebras.gesbatiments {
     exports org.elebras.gesbatiments.model to com.fasterxml.jackson.databind;
 
     opens org.elebras.gesbatiments.vue to javafx.fxml;
-
     exports org.elebras.gesbatiments;
     exports org.elebras.gesbatiments.vue;
+    exports org.elebras.gesbatiments.visiteur;
+    exports org.elebras.gesbatiments.facade;
 }
