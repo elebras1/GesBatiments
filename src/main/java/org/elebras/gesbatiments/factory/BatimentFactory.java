@@ -8,14 +8,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * La classe {@link BatimentFactory} est responsable de la création de bâtiments avec des étages et des pièces.
+ * Elle permet de configurer divers paramètres du bâtiment, tels que le nombre d'étages, l'usage du bâtiment,
+ * et le nombre de pièces par étage.
+ */
 public class BatimentFactory {
+
     /**
-     * Le nombre de batiments créé.
+     * Le nombre de bâtiments créés.
      */
     private Integer nombreBatiment;
 
     /**
-     * Le numéro de la premiere piece.
+     * Le numéro de la première pièce.
      */
     private Integer numeroPremierePiece;
 
@@ -25,18 +31,18 @@ public class BatimentFactory {
     private Integer numeroPremierEtage;
 
     /**
-     * Le nombre d'étages.
+     * Le nombre d'étages du bâtiment.
      */
     private Integer nombreEtages;
 
     /**
-     * L'usage du batiment (ex : Logement, Bureau, etc).
+     * L'usage du bâtiment (ex : Logement, Bureau, etc.).
      */
     private String usage;
 
     /**
-     * Contructeur de la classe BatimentFactory,
-     * donne une valeur initial a tout les attributs.
+     * Constructeur de la classe {@link BatimentFactory}.
+     * Initialise les attributs avec des valeurs par défaut.
      */
     public BatimentFactory() {
         this.nombreBatiment = 0;
@@ -47,14 +53,14 @@ public class BatimentFactory {
     }
 
     /**
-     * Construit un batiment avec un nombre d'étages, de pièces par étage et de bureaux.
+     * Construit un bâtiment avec un nombre d'étages, de pièces par étage et de bureaux.
      * La méthode génère une liste d'étages et de pièces, en fonction des paramètres fournis et des attributs de l'objet actuel.
      *
-     * @param nom
-     * @param nbPieceParEtage
-     * @param nbBureau
-     * @param surfacePiece
-     * @return Un le batiment créer {@link Batiment}
+     * @param nom            Le nom du bâtiment.
+     * @param nbPieceParEtage Le nombre de pièces par étage.
+     * @param nbBureau       Le nombre de bureaux à créer dans le bâtiment.
+     * @param surfacePiece   La surface de chaque pièce en mètres carrés.
+     * @return Un objet {@link Batiment} représentant le bâtiment créé, ou {@code null} si les paramètres sont invalides.
      */
     public Batiment construire(String nom, Integer nbPieceParEtage, Integer nbBureau, Integer surfacePiece) {
         if(nbPieceParEtage < 1 || surfacePiece < 9 || Objects.equals(nom, "") || nbBureau < 0) {
@@ -110,7 +116,7 @@ public class BatimentFactory {
     /**
      * Définit l'usage du bâtiment.
      *
-     * @param usage L'usage du bâtiment à définir.
+     * @param usage L'usage du bâtiment à définir (par exemple : "Logement", "Bureau", etc.).
      */
     public void setUsage(String usage) {
         this.usage = usage;
@@ -135,35 +141,34 @@ public class BatimentFactory {
     }
 
     /**
-     * Récupère le nombre d'étages.
+     * Récupère le nombre d'étages du bâtiment.
      *
-     * @return Le nombre d'étages.
+     * @return Le nombre d'étages du bâtiment.
      */
     public Integer getNombreEtages() {
         return nombreEtages;
     }
 
     /**
-     * Récupère l'usage du batiment.
+     * Récupère l'usage du bâtiment.
      *
-     * @return L'usage du batiment.
+     * @return L'usage du bâtiment.
      */
     public String getUsage() {
         return usage;
     }
 
-
     /**
-     * Récupère le nombre de batiments.
+     * Récupère le nombre de bâtiments créés.
      *
-     * @return le nombre de batiments.
+     * @return Le nombre de bâtiments créés.
      */
     public Integer getNombreBatiment() {
         return nombreBatiment;
     }
 
     /**
-     * Incrémente le nombre de batiments.
+     * Incrémente le nombre de bâtiments créés.
      */
     public void incrementNombreBatiment() {
         this.nombreBatiment++;

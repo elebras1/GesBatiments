@@ -4,13 +4,19 @@ import org.elebras.gesbatiments.model.Batiment;
 import org.elebras.gesbatiments.model.Etage;
 import org.elebras.gesbatiments.model.Piece;
 
+/**
+ * Classe permettant de vérifier la conformité de la numérotation
+ * des pièces et des étages dans un bâtiment.
+ */
 public class BatimentVerificateur {
 
     /**
-     * Vérification de la numérotation des pièces.
+     * Vérifie la numérotation des pièces d'un bâtiment.
+     * Les numéros de pièces doivent être dans un ordre croissant.
      *
-     * @param batiment le batiment à vérifier.
-     * @return un résultat de vérification avec un message.
+     * @param batiment le bâtiment à vérifier, contenant une liste de pièces.
+     * @return un {@link VerificationResultat} indiquant si une erreur est détectée
+     *         dans la numérotation des pièces, ou aucune erreur.
      */
     public VerificationResultat verificationPieces(final Batiment batiment) {
         int idPrecedent = -1;
@@ -25,10 +31,12 @@ public class BatimentVerificateur {
     }
 
     /**
-     * Vérification de la numérotation des étages.
+     * Vérifie la numérotation des étages d'un bâtiment.
+     * Les numéros des étages doivent être dans un ordre croissant.
      *
-     * @param batiment le batiment à vérifier.
-     * @return un résultat de vérification avec un message.
+     * @param batiment le bâtiment à vérifier, contenant une liste d'étages.
+     * @return un {@link VerificationResultat} indiquant si une erreur est détectée
+     *         dans la numérotation des étages, ou aucune erreur.
      */
     public VerificationResultat verificationEtages(final Batiment batiment) {
         int idPrecedent = -1;
@@ -43,10 +51,14 @@ public class BatimentVerificateur {
     }
 
     /**
-     * Vérification complète d'un batiment.
+     * Effectue une vérification complète d'un bâtiment.
+     * Cette méthode vérifie successivement la numérotation des étages,
+     * puis celle des pièces.
      *
-     * @param batiment le batiment à vérifier.
-     * @return un résultat de vérification avec un message.
+     * @param batiment le bâtiment à vérifier, contenant une liste d'étages et de pièces.
+     * @return un {@link VerificationResultat} indiquant si une erreur est détectée
+     *         dans la numérotation des étages ou des pièces, ou aucune erreur.
+     *         La vérification des étages est prioritaire sur celle des pièces.
      */
     public VerificationResultat verifier(final Batiment batiment) {
         VerificationResultat resultEtage = this.verificationEtages(batiment);
