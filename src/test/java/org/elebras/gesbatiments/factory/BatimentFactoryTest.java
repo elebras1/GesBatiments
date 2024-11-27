@@ -1,7 +1,6 @@
-package org.elebras.gesbatiments;
+package org.elebras.gesbatiments.factory;
 
 import org.elebras.gesbatiments.model.Batiment;
-import org.elebras.gesbatiments.factory.BatimentFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

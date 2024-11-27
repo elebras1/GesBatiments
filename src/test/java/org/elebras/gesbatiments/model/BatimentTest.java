@@ -1,8 +1,5 @@
-package org.elebras.gesbatiments;
+package org.elebras.gesbatiments.model;
 
-import org.elebras.gesbatiments.model.Batiment;
-import org.elebras.gesbatiments.model.Etage;
-import org.elebras.gesbatiments.model.Piece;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -49,7 +46,7 @@ class BatimentTest {
     @Test
     void testEqualsAndHashCode() {
         Batiment batiment1 = new Batiment(1, "Immeuble A", "Bureau", null, null);
-        Batiment batiment2 = new Batiment(1, "Immeuble B", "Résidentiel", null, null);
+        Batiment batiment2 = new Batiment(1, "Immeuble A", "Résidentiel", null, null);
         Batiment batiment3 = new Batiment(2, "Immeuble C", "Education", null, null);
 
         assertEquals(batiment1, batiment2);

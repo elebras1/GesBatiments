@@ -1,7 +1,5 @@
-package org.elebras.gesbatiments;
+package org.elebras.gesbatiments.model;
 
-import org.elebras.gesbatiments.model.Etage;
-import org.elebras.gesbatiments.model.Piece;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

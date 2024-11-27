@@ -1,8 +1,8 @@
-package org.elebras.gesbatiments;
+package org.elebras.gesbatiments.verificateur;
 
-import org.elebras.gesbatiments.verificateur.BatimentVerificateur;
 import org.elebras.gesbatiments.model.*;
 import org.elebras.gesbatiments.factory.BatimentFactory;
+import org.elebras.gesbatiments.verificateur.BatimentVerificateur;
 import org.elebras.gesbatiments.verificateur.VerificationResultat;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class BatimentVerificateurTest {
 

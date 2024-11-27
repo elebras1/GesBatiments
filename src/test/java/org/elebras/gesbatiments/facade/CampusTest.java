@@ -1,6 +1,5 @@
-package org.elebras.gesbatiments;
+package org.elebras.gesbatiments.facade;
 
-import org.elebras.gesbatiments.facade.Campus;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
