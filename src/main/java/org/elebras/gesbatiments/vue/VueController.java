@@ -32,17 +32,21 @@ public class VueController extends Application {
         }
     }
 
-    public void ouvrirVueBatiment(Stage stage, int numeroBatiment) {
+    public void ouvrirVueBatiment(int numeroBatiment) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("batiment.fxml"));
             fxmlLoader.setController(new VueBatiment(this.campus, numeroBatiment));
             Scene scene = new Scene(fxmlLoader.load(), 720, 520);
-            stage.setScene(scene);
-            stage.show();
+
+            Stage newStage = new Stage();
+            newStage.setScene(scene);
+            newStage.show();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 
     public static void main(String[] args) {
         launch(args);

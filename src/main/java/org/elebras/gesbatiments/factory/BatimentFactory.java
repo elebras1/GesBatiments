@@ -43,7 +43,7 @@ public class BatimentFactory {
         this.numeroPremierePiece = 0;
         this.numeroPremierEtage = 0;
         this.nombreEtages = 1;
-        this.usage = "Logement";
+        this.usage = "Indéfini";
     }
 
     /**

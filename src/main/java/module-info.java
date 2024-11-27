@@ -12,4 +12,5 @@ module org.elebras.gesbatiments {
     exports org.elebras.gesbatiments.vue;
     exports org.elebras.gesbatiments.visiteur;
     exports org.elebras.gesbatiments.facade;
+    exports org.elebras.gesbatiments.observer;
 }

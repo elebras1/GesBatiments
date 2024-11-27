@@ -84,18 +84,20 @@ public class Campus implements Observable {
     }
 
     public String modifierNomBatiment(int numeroBatiment, String nomBatiment) {
+        for (Batiment batimentVoisin : this.batiments) {
+            if(!batimentVoisin.getNumero().equals(numeroBatiment) && nomBatiment.equals(batimentVoisin.getNom())) {
+                return null;
+            }
+        }
+
         for (Batiment batiment : this.batiments) {
             if (batiment.getNumero().equals(numeroBatiment)) {
-                for (Batiment batimentVoisin : this.batiments) {
-                    if (batiment != batimentVoisin && batiment.getNom().equals(batimentVoisin.getNom())) {
-                        return null;
-                    }
-                }
                 batiment.setNom(nomBatiment);
                 this.notifyObservers();
                 return batiment.getNom();
             }
         }
+
         return null;
     }
 

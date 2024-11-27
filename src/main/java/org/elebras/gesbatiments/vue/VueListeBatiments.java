@@ -147,7 +147,7 @@ public class VueListeBatiments implements Observer {
             return;
         }
 
-        this.vueController.ouvrirVueBatiment(this.stage, numeroBatiment);
+        this.vueController.ouvrirVueBatiment(numeroBatiment);
     }
 
     @FXML
