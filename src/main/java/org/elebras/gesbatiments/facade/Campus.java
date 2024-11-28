@@ -246,15 +246,18 @@ public class Campus implements Observable {
      * @return {@code true} si le bâtiment a été supprimé, {@code false} sinon.
      */
     public boolean supprimeBatiment(int numeroBatiment) {
-        for (Batiment batiment : this.batiments) {
+        Iterator<Batiment> iterator = this.batiments.iterator();
+        while (iterator.hasNext()) {
+            Batiment batiment = iterator.next();
             if (batiment.getNumero().equals(numeroBatiment)) {
-                this.batiments.remove(batiment);
+                iterator.remove();
                 this.notifyObservers();
                 return true;
             }
         }
         return false;
     }
+
 
     /**
      * Affiche les noms des bâtiments du campus.
