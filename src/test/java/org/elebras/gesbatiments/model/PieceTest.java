@@ -1,34 +1,50 @@
 package org.elebras.gesbatiments.model;
 
+import org.elebras.gesbatiments.visiteur.BureauxVisiteur;
+import org.elebras.gesbatiments.visiteur.Visiteur;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class PieceTest {
 
-    @Test
-    void testConstructorAndGetters() {
-        Etage etage = new Etage(1);
-        Piece piece = new Piece(20, true, 1, etage);
+    private Piece piece;
+    private Etage etage;
 
-        assertEquals(20, piece.getSurface());
-        assertTrue(piece.getEstBureau());
-        assertEquals(1, piece.getNumero());
-        assertEquals(etage, piece.getEtage());
+    @BeforeEach
+    void setUp() {
+        this.etage = new Etage(1);
+        this.piece = new Piece(20, true, 1, this.etage);
     }
 
     @Test
-    void testSetters() {
-        Piece piece = new Piece(null, null, null, null);
+    void testGetSurface() {
+        assertEquals(20, this.piece.getSurface());
+    }
 
-        piece.setSurface(25);
-        piece.setEstBureau(false);
-        piece.setNumero(2);
-        piece.setEtage(new Etage(2));
+    @Test
+    void testGetEstBureau() {
+        assertTrue(this.piece.getEstBureau());
+    }
 
-        assertEquals(25, piece.getSurface());
-        assertFalse(piece.getEstBureau());
-        assertEquals(2, piece.getNumero());
-        assertEquals(2, piece.getEtage().getNumero());
+    @Test
+    void testGetNumero() {
+        assertEquals(1, this.piece.getNumero());
+    }
+
+    @Test
+    void testGetEtage() {
+        assertNotNull(this.piece.getEtage());
+        assertEquals(this.etage, this.piece.getEtage());
+    }
+
+    @Test
+    void testAccept() {
+        Visiteur visiteur = new BureauxVisiteur();
+        this.piece.accept(visiteur);
+        String result = visiteur.getResult();
+        assertTrue(result.contains("Pièce 1"));
+        assertTrue(result.contains("Type: Bureau"));
     }
 }

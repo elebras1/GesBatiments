@@ -48,7 +48,7 @@ public class BatimentVisiteur implements Visiteur {
      */
     @Override
     public void visite(Piece piece) {
-        this.result.append("        Bureau ").append(piece.getNumero())
+        this.result.append("        Pièce ").append(piece.getNumero())
                 .append(" - Surface: ").append(piece.getSurface()).append(" m²\n");
     }
 
