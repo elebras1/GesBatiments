@@ -123,6 +123,15 @@ public class Campus implements Observable {
     }
 
     /**
+     * Retourne le numéro de la première pièce à construire.
+     *
+     * @return le numéro de la première pièce.
+     */
+    public int getNumeroPremierePiece() {
+        return this.factory.getNumeroPremierePiece();
+    }
+
+    /**
      * Définit le numéro du premier étage à construire.
      *
      * @param numeroPremierEtage le numéro du premier étage.
@@ -132,12 +141,30 @@ public class Campus implements Observable {
     }
 
     /**
+     * Retourne le numéro du premier étage à construire.
+     *
+     * @return le numéro du premier étage.
+     */
+    public int getNumeroPremiereEtage() {
+        return this.factory.getNumeroPremierEtage();
+    }
+
+    /**
      * Définit le nombre d'étages à construire.
      *
-     * @param nombreEtage
+     * @param nombreEtage le nombre d'étages
      */
     public void setNombreEtages(int nombreEtage) {
         this.factory.setNombreEtages(nombreEtage);
+    }
+
+    /**
+     * Retourne le nombre d'étages à construire.
+     *
+     * @return le nombre d'étages.
+     */
+    public int getNombreEtages() {
+        return this.factory.getNombreEtages();
     }
 
     /**
@@ -147,6 +174,10 @@ public class Campus implements Observable {
      */
     public void setUsage(String usage) {
         this.factory.setUsage(usage);
+    }
+
+    public String getUsage() {
+        return this.factory.getUsage();
     }
 
     /**

@@ -110,6 +110,16 @@ public class VueListeBatiments implements Observer {
     }
 
     /**
+     * Initialise les paramètres de la creation d'un batiment.
+     */
+    public void initialize() {
+        this.textNumeroPremierePiece.setText(String.valueOf(this.campus.getNumeroPremierePiece()));
+        this.textNumeroPremierEtage.setText(String.valueOf(this.campus.getNumeroPremiereEtage()));
+        this.textNombreEtage.setText(String.valueOf(this.campus.getNombreEtages()));
+        this.textUsage.setText(this.campus.getUsage());
+    }
+
+    /**
      * Ajoute un bâtiment en fonction des informations saisies dans les champs de texte.
      * Vérifie que les champs sont remplis et que les données sont valides avant d'ajouter le bâtiment.
      *
@@ -324,5 +334,7 @@ public class VueListeBatiments implements Observer {
 
         alert.showAndWait();
     }
+
+
 
 }
