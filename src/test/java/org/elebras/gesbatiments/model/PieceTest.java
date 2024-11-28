@@ -9,42 +9,42 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class PieceTest {
 
-    private Piece piece;
-    private Etage etage;
+  private Piece piece;
+  private Etage etage;
 
-    @BeforeEach
-    void setUp() {
-        this.etage = new Etage(1);
-        this.piece = new Piece(20, true, 1, this.etage);
-    }
+  @BeforeEach
+  void setUp() {
+    this.etage = new Etage(1);
+    this.piece = new Piece(20, true, 1, this.etage);
+  }
 
-    @Test
-    void testGetSurface() {
-        assertEquals(20, this.piece.getSurface());
-    }
+  @Test
+  void testGetSurface() {
+    assertEquals(20, this.piece.getSurface());
+  }
 
-    @Test
-    void testGetEstBureau() {
-        assertTrue(this.piece.getEstBureau());
-    }
+  @Test
+  void testGetEstBureau() {
+    assertTrue(this.piece.getEstBureau());
+  }
 
-    @Test
-    void testGetNumero() {
-        assertEquals(1, this.piece.getNumero());
-    }
+  @Test
+  void testGetNumero() {
+    assertEquals(1, this.piece.getNumero());
+  }
 
-    @Test
-    void testGetEtage() {
-        assertNotNull(this.piece.getEtage());
-        assertEquals(this.etage, this.piece.getEtage());
-    }
+  @Test
+  void testGetEtage() {
+    assertNotNull(this.piece.getEtage());
+    assertEquals(this.etage, this.piece.getEtage());
+  }
 
-    @Test
-    void testAccept() {
-        Visiteur visiteur = new BureauxVisiteur();
-        this.piece.accept(visiteur);
-        String result = visiteur.getResult();
-        assertTrue(result.contains("Pièce 1"));
-        assertTrue(result.contains("Type: Bureau"));
-    }
+  @Test
+  void testAccept() {
+    Visiteur visiteur = new BureauxVisiteur();
+    this.piece.accept(visiteur);
+    String result = visiteur.getResult();
+    assertTrue(result.contains("Pièce 1"));
+    assertTrue(result.contains("Type: Bureau"));
+  }
 }

@@ -11,45 +11,45 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class BatimentJsonFactoryTest {
 
-    private BatimentJsonFactory factory;
+  private BatimentJsonFactory factory;
 
-    @BeforeEach
-    public void init() {
-        this.factory = new BatimentJsonFactory();
-    }
+  @BeforeEach
+  public void init() {
+    this.factory = new BatimentJsonFactory();
+  }
 
-    @Test
-    public void creerListeBatimentsByJsonTest() {
-        File file = new File("batiments.json");
+  @Test
+  public void creerListeBatimentsByJsonTest() {
+    File file = new File("batiments.json");
 
-        List<Batiment> batiments = factory.creerListeBatimentsByJson(file);
+    List<Batiment> batiments = factory.creerListeBatimentsByJson(file);
 
-        assertNotNull(batiments);
-        assertFalse(batiments.isEmpty());
-        assertEquals(3, batiments.size());
+    assertNotNull(batiments);
+    assertFalse(batiments.isEmpty());
+    assertEquals(3, batiments.size());
 
-        assertEquals("A", batiments.get(0).getNom());
-        assertEquals(1, batiments.get(0).getEtages().size());
-        assertEquals(12, batiments.get(0).getPieces().size());
-    }
+    assertEquals("A", batiments.get(0).getNom());
+    assertEquals(1, batiments.get(0).getEtages().size());
+    assertEquals(12, batiments.get(0).getPieces().size());
+  }
 
-    @Test
-    public void creerListeBatimentsByJsonTestFichierVide() {
-        File file = new File("batimentsVide.json");
+  @Test
+  public void creerListeBatimentsByJsonTestFichierVide() {
+    File file = new File("batimentsVide.json");
 
-        List<Batiment> batiments = factory.creerListeBatimentsByJson(file);
+    List<Batiment> batiments = factory.creerListeBatimentsByJson(file);
 
-        assertNotNull(batiments);
-        assertTrue(batiments.isEmpty());
-    }
+    assertNotNull(batiments);
+    assertTrue(batiments.isEmpty());
+  }
 
-    @Test
-    public void creerListeBatimentsByJsonTestFichierInvalide() {
-        File file = new File("batimentNonOrdonne.json");
+  @Test
+  public void creerListeBatimentsByJsonTestFichierInvalide() {
+    File file = new File("batimentNonOrdonne.json");
 
-        List<Batiment> batiments = this.factory.creerListeBatimentsByJson(file);
+    List<Batiment> batiments = this.factory.creerListeBatimentsByJson(file);
 
-        assertNotNull(batiments);
-        assertTrue(batiments.isEmpty());
-    }
+    assertNotNull(batiments);
+    assertTrue(batiments.isEmpty());
+  }
 }

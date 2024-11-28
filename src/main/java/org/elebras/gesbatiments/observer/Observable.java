@@ -5,22 +5,22 @@ package org.elebras.gesbatiments.observer;
  */
 public interface Observable {
 
-    /**
-     * Ajoute un observateur.
-     *
-     * @param observer l'observateur à ajouter.
-     */
-    void addObserver(Observer observer);
+  /**
+   * Ajoute un observateur.
+   *
+   * @param observer l'observateur à ajouter.
+   */
+  void addObserver(Observer observer);
 
-    /**
-     * Supprime un observateur.
-     *
-     * @param observer l'observateur à retirer.
-     */
-    void removeObserver(Observer observer);
+  /**
+   * Supprime un observateur.
+   *
+   * @param observer l'observateur à retirer.
+   */
+  void removeObserver(Observer observer);
 
-    /**
-     * Notifie tous les observateurs d'un changement.
-     */
-    void notifyObservers();
+  /**
+   * Notifie tous les observateurs d'un changement.
+   */
+  void notifyObservers();
 }

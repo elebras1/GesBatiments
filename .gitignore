@@ -21,6 +21,8 @@ target/
 .settings
 .springBeans
 .sts4-cache
+bin
+.checkstyle
 
 ### NetBeans ###
 /nbproject/private/
