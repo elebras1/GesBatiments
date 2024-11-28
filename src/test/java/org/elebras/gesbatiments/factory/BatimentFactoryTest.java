@@ -20,7 +20,7 @@ public class BatimentFactoryTest {
 
     @Test
     public void valeursInitialTest() {
-        assertEquals(this.factory.getUsage(), "Logement");
+        assertEquals(this.factory.getUsage(), "Indéfini");
         assertEquals(this.factory.getNombreEtages(), 1);
         assertEquals(this.factory.getNumeroPremierEtage(), 0);
         assertEquals(this.factory.getNumeroPremierePiece(), 0);
@@ -40,25 +40,25 @@ public class BatimentFactoryTest {
     }
 
     @Test
-    public void construireBatimentNbPieces1Test() {
+    public void construireBatimentNbPiecesTropPetitTest() {
         Batiment batimentA = this.factory.construire("A", -1, 1, 19);
         assertNull(batimentA);
     }
 
     @Test
-    public void construireBatimentNbPieces2Test() {
+    public void construireBatimentSurfaceTopPetiteTest() {
         Batiment batimentA = this.factory.construire("A", 8, 1, 5);
         assertNull(batimentA);
     }
 
     @Test
-    public void construireBatimentNbPieces3Test() {
-        Batiment batimentA = this.factory.construire(null, 12, 1, 19);
+    public void construireBatimentNomSansCaractereTest() {
+        Batiment batimentA = this.factory.construire("", 12, 1, 19);
         assertNull(batimentA);
     }
 
     @Test
-    public void construireBatimentNbPieces4Test() {
+    public void construireBatimentBasiqueTest() {
         Batiment batimentA = this.factory.construire("A", 12, 1, 19);
         assertEquals(batimentA.getPieces().size(), 12);
         assertEquals(batimentA.getPieces().get(0).getSurface(), 19);
@@ -66,8 +66,10 @@ public class BatimentFactoryTest {
 
     @Test
     public void contruireBatimentTest() {
+        this.factory.setUsage("Education");
+        this.factory.setNombreEtages(3);
         Batiment batimentA = this.factory.construire("A", 12, 1, 19);
-        assertEquals(batimentA.getPieces().size(), 12);
+        assertEquals(batimentA.getPieces().size(), 36);
         assertEquals(batimentA.getPieces().get(0).getSurface(), 19);
     }
 
@@ -84,4 +86,11 @@ public class BatimentFactoryTest {
 
         assertEquals(this.factory.getNombreBatiment(), nombreBatiments);
     }
+
+    @Test
+    public void construireBatimentAvecPlusieursEtagesTest() {
+        Batiment batimentA = this.factory.construire("A", 12, 3, 19);
+        assertEquals(batimentA.getEtages().size(), 1);
+    }
+
 }

@@ -164,6 +164,10 @@ public class VueListeBatiments implements Observer {
             return;
         }
 
+        if(Integer.parseInt(this.textNombreEtage.getText()) < 1) {
+            this.afficherAlerte("Erreur", "Nombre d'étages invalide", "Le nombre d'étages doit être supérieur ou égal à 1.");
+        }
+
         try {
             int nombreEtages = Integer.parseInt(this.textNombreEtage.getText());
             int numeroPremierEtage = Integer.parseInt(this.textNumeroPremierEtage.getText());
